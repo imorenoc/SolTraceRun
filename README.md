@@ -1,7 +1,7 @@
 Run SolTrace
 ============
 
-Este conjunto de scripts son para realizar la simulación de un modelo de soltrace, `file.stinput`, y el posporcesamiento.
+Este conjunto de scripts son para realizar la simulación de un modelo de [SolTrace](http://www.nrel.gov/csp/soltrace/download.html ), `file.stinput`,  así como el posporcesamiento desde la terminal.
 
 	_SolTraceRun.sh
 	_SolTracePos.sh
@@ -10,11 +10,10 @@ Este conjunto de scripts son para realizar la simulación de un modelo de soltra
 Necesidades
 -----------
 
-Se requiere tener instalado SolTrace, y poder ejecutarlo desde la terminal al agregar al $PATH
+Se requiere tener instalado [SolTrace](http://www.nrel.gov/csp/soltrace/download.html ) 
+, y poder ejecutarlo desde la terminal. Lo cual se logra al agregar `/Applications/SolTrace.app/Contents/MacOS/SolTrace` al `$PATH`.
 
-    /Applications/SolTrace.app/Contents/MacOS/SolTrace
-
-Tener instalado `R`, con los siguientes paquetes,
+Además, es necesario tener instalado [R](http://cran.r-project.org/ ), con los siguientes paquetes:
 
 	library(lattice)
 	library(dplyr)
