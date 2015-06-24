@@ -1,0 +1,60 @@
+// Ruta
+rut = "/Users/isaias/Documents/Escuela/PhD/Code/SolTrace/scriptRun/shell_script/";
+
+// Primero abre el modelo OneHelio.stinput
+open_project(rut + "OneHelio.stinput");
+
+// Archivo de 
+fs = rut + "stats.dat";
+file = open(fs, "w");
+
+n = 1e3;
+traceopt({ 'rays' = n } );
+trace();
+
+stage = 1;
+element = 0;
+nBin = 30;
+DNI = 1000;
+
+// returns a table of statistics on the target
+stat = elementstats( stage, element, nBin, nBin, DNI, false );
+
+write_line(file, "# Muestra el numero de rayos que golpean cada bin");
+flux ="";
+for (r=0;r<#stat.flux;r++)
+{
+for (c=0;c<#stat.flux[r];c++)
+flux = flux + stat.flux[r][c] + "\t";
+
+write_line(file, flux);
+flux = "";
+}
+
+// nullify the flux grid and the x,y arrays to show the various names of table fields
+stat.flux = null; 
+stat.xvalues = null;
+stat.yvalues = null;
+keys = @stat; // obtain an array of all the non-null keys in the stat structure
+
+write_line(file, "## Todas las estadisticas:");
+for (i=0;i<#keys;i++)
+write_line( file, "# " + keys[i] + " = " + stat{keys[i]} );
+
+
+write_line(file, "# ray hits on target: " + rayhits(1, 0));
+
+close(file);
+
+//---------------------------------------------------------------
+fp = rut + "data.dat";
+file = open(fp, "w");
+write_line( file, stat{keys[4]} + " ## " + keys[4]);
+write_line(file, "x, y, z, cosx, cosy, cosz, element, stage, raynum");
+i = 0.0;
+while(raydata(i) != null){
+write_line( file, raydata(i));
+i = i + 1;
+}
+
+close(file);
